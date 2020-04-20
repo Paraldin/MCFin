@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="#DB8918"
+             Title="Login Screen"
+             x:Class="MCFin.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="CenterAndExpand">
+        <!-- Place new controls here -->
+        <Label Text="Welcome to Mark's Financial Mobile App!"  FontSize="20"/>
+        <Label Text="Sign in to get started!"/>
+        <Grid Padding="40,20,40,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Frame IsClippedToBounds="True" CornerRadius="30">
+                <StackLayout>
+                    <Entry IsPassword="False" Placeholder="Email" Keyboard="Email" />
+                    <Entry IsPassword="True" Placeholder="Password" />
+                </StackLayout>
+            </Frame>
+            <Button x:Name="loginButton" Grid.Row="1" Text="Login" CornerRadius="30" BackgroundColor="#18588E" TextColor="White" Clicked="Login_Clicked"/>
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

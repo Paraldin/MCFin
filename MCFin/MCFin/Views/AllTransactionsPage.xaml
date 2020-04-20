@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Padding="20"
+             BackgroundColor="#DB8918"
+             Title="All Transactions"
+             x:Class="MCFin.Views.AllTransactionsPage">
+    <Frame CornerRadius="10">
+    <ListView ItemsSource="{Binding transactions}" ItemTapped="ListView_ItemTapped" RowHeight="50">
+        <ListView.Header>
+            <StackLayout Padding="0,0,0,10">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Account" WidthRequest="80"/>
+                <Label Text="Category" HorizontalOptions="EndAndExpand" WidthRequest="80"/>
+                <Label Text="Date" HorizontalOptions="EndAndExpand" WidthRequest="80" />
+                <Label Text="Amount" HorizontalOptions="EndAndExpand" WidthRequest="80"/>
+            </StackLayout>
+                <BoxView BackgroundColor="Black" HeightRequest="1" VerticalOptions="End"/>
+            </StackLayout>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding AccountName}" TextColor="Black" WidthRequest="80"/>
+                        <Label Text="{Binding CatName}" TextColor="Black" HorizontalOptions="EndAndExpand" WidthRequest="80"/>
+                        <Label Text="{Binding Date, StringFormat='{0:MMMM dd}'}" TextColor="Black" HorizontalOptions="EndAndExpand" WidthRequest="80" />
+                        <Label Text="{Binding Amount, StringFormat='{0:C}'}" TextColor="Black" HorizontalOptions="EndAndExpand" WidthRequest="80"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    </Frame>
+</ContentPage>

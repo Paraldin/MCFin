@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             Padding="20"
+             BackgroundColor="#DB8918"
+             Title="New Transaction"
+             x:Class="MCFin.Views.CreateTransactionPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="CenterAndExpand">
+        <Frame CornerRadius="10">
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+        <StackLayout Grid.ColumnSpan="2">
+            <Label Text="Description"/>
+            <Entry x:Name="descriptionEntry" Placeholder="Description" />
+        </StackLayout>
+        <StackLayout Grid.Column="0" Grid.Row="1" Spacing="0" Padding="0,10,0,0" >
+            <Label Text="Category"/>
+            <Picker x:Name="categoryPicker" ItemDisplayBinding="{Binding Name}" />
+        </StackLayout>
+        <StackLayout Grid.Column="1" Grid.Row="1" Spacing="0" Padding="0,10,0,0" >
+            <Label Text="Budget"/>
+            <Picker x:Name="budgetPicker" />
+        </StackLayout>
+        <StackLayout Grid.Row="2" Grid.Column="0">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Amount" FontSize="12"/>
+                <Label Text="positive number" TextColor="Gray" FontSize="Micro"/>
+            </StackLayout>
+            <Entry x:Name="amountEntry" Keyboard="Numeric" />
+        </StackLayout>
+        <StackLayout Grid.ColumnSpan="2" Grid.Row="3" Spacing="0" Padding="0,10,0,0" >
+            <Label Text="Date"/>
+            <DatePicker x:Name="datePicker" Date="{x:Static system:DateTime.Today}" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <Label Text="Expense?" VerticalOptions="Center"/>
+            <CheckBox x:Name="expenseBox" VerticalOptions="Center"/>
+        </StackLayout>
+        <StackLayout x:Name="accountSection" Grid.Row="4" Grid.ColumnSpan="2">
+            <Label Text="Bank Account"/>
+            <Picker x:Name="accountPicker" ItemDisplayBinding="{Binding Name}"/>
+        </StackLayout>
+
+    </Grid>
+        </Frame>
+        <Button x:Name="submitButton" Text="Create Transaction" TextColor="White" BackgroundColor="#18588E" BorderRadius="30" Clicked="submitButton_Clicked"/>
+    </StackLayout>
+</ContentPage>

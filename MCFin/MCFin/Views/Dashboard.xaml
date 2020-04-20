@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             mc:Ignorable="d"
+             NavigationPage.HasBackButton="False"
+             Padding="10"
+             BackgroundColor="Azure"
+             Title="Dashboard"
+             x:Class="MCFin.Views.Dashboard">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button" x:Key="NavButton">
+                <Setter Property="BackgroundColor" Value="#DB8918"/>
+                <Setter Property="BorderRadius" Value="10"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <Grid RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <Label Text="This Month's Spending" HorizontalOptions="Center"/>
+                <forms:ChartView x:Name="ChartOne" HeightRequest="100"/>
+            </StackLayout>
+            <ListView x:Name="accountList" ItemsSource="{Binding accountList}" Grid.Row="1" ItemSelected="ListView_ItemSelected">
+                <ListView.Header>
+                    <Label Text="Bank Accounts"/>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="0,0,20,0">
+                                <Label Text="{Binding Name}" VerticalOptions="CenterAndExpand" TextColor="Blue" />
+                                <Label Text="{Binding Balance, StringFormat='{0:C}'}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" TextColor="Black" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <BoxView BackgroundColor="#DB8918" HeightRequest="1" Grid.Row="1" VerticalOptions="End"/>
+            <ListView x:Name="budgetList" ItemsSource="{Binding testBudgets}" Grid.Row="2" ItemTapped="BudgetList_ItemTappedAsync">
+                <ListView.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Budgets"/>
+                        <Label Text="Budget Remaining" HorizontalOptions="EndAndExpand" Padding="0,0,10,0"/>
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="0,0,20,0">
+                                <Label Text="{Binding Name}" VerticalOptions="CenterAndExpand" TextColor="Blue" />
+                                <Label Text="{Binding CurrentBalance, StringFormat='{0:C}'}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" TextColor="Black" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Grid.Row="3">
+                <Button Text="All Transactions" Style="{StaticResource NavButton}" Command="{Binding SeeAllTransactions}"/>
+                <Button Text="Create" Style="{StaticResource NavButton}" Command="{Binding GoToCreate}" />
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

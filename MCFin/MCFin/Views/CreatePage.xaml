@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Padding="20"
+             Title="Create Page"
+             BackgroundColor="#DB8918"
+             x:Class="MCFin.Views.CreatePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#18588E"/>
+                <Setter Property="BorderRadius" Value="30"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="CenterAndExpand" Spacing="20">
+        <Button Text="Create Account" Command="{Binding NewCreatePage}" CommandParameter="account"/>
+        <Button Text="Create Category" Command="{Binding NewCreatePage}" CommandParameter="category"/>
+        <Button Text="Create Budget" Command="{Binding NewCreatePage}" CommandParameter="budget"/>
+        <Button Text="Create Transaction" Command="{Binding NewCreatePage}" CommandParameter="transaction"/>
+    </StackLayout>
+</ContentPage>

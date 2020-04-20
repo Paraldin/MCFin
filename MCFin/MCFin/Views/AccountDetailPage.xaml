@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:Forms9Patch="clr-namespace:Forms9Patch;assembly=Forms9Patch"
+             mc:Ignorable="d"
+             Padding="20"
+             Title="{Binding personalAccount.Name}"
+             BackgroundColor="#DB8918"
+             x:Class="MCFin.Views.AccountDetailPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddTransaction}"/>
+    </ContentPage.ToolbarItems>
+    <Frame CornerRadius="10">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            <Grid>
+                <Label Grid.Column="0" Text="Current Balance:" FontSize="20" TextColor="Black" VerticalOptions="End" HorizontalOptions="Start" />
+                <Forms9Patch:Label Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding personalAccount.Balance, StringFormat='{0:C}'}" Padding="40,0,0,0" TextColor="Black" Lines="1" FontSize="90" MaxLines="1" AutoFit="Width" VerticalOptions="EndAndExpand" HorizontalOptions="EndAndExpand"  HeightRequest="30"/>
+            </Grid>
+            <BoxView Grid.Row="1" BackgroundColor="Black" HeightRequest="1"/>
+        <ListView Grid.Row="2" x:Name="transactionList" ItemTapped="ListView_ItemTapped" RowHeight="50" CachingStrategy="RecycleElement">
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" Spacing="30" Padding="30,20,0,10" BackgroundColor="Accent">
+                    <Label Text="Category" TextColor="White" FontAttributes="Bold" TextDecorations="Underline" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="Budget" TextColor="White" FontAttributes="Bold" TextDecorations="Underline" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="Amount" TextColor="White" FontAttributes="Bold" TextDecorations="Underline" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Spacing="30" Padding="20,0,0,0">
+                            <Label Text="{Binding CatName}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                            <Label Text="{Binding BudgetName}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                            <Label Text="{Binding Amount, StringFormat='{0:C}'}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="5,0,0,0"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+    </Frame>
+</ContentPage>
