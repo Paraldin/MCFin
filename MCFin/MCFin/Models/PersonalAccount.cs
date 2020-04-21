@@ -43,7 +43,7 @@ namespace MCFin.Models
             public int HHid { get; set; }
             public string AccountName { get; set; }
             public decimal AccountBalance { get; set; }
-            public Guid CreatedById { get; set; }
+            public string CreatedById { get; set; }
             public decimal Warning { get; set; }
         }
     }

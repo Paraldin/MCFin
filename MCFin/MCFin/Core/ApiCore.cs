@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using static MCFin.Models.PersonalAccount;
 
 namespace MCFin.Core
 {
@@ -130,6 +131,57 @@ namespace MCFin.Core
             string root = APIConstants.Root;
             transactionAmount = type == true ? transactionAmount * -1 : transactionAmount;
             string queryString = $"{root}/api/Accounts/AddTransaction?description={description}&date={date}&transactionAmount={transactionAmount}&type={type}&acctId={acctId}&categoryId={categoryId}&enteredBy={enteredById}&budgetId={budgetId}";
+
+            var jsonResult = await ApiServices.GetDataFromService(queryString).ConfigureAwait(false);
+
+            if (jsonResult != null)
+            {
+                return -1;
+            }
+            else
+            {
+                return 500;
+            }
+        }
+        //Says post, but is a get
+        public static async Task<Int16> PostAccount(PostAccount a)
+        {
+            string root = APIConstants.Root;
+            string queryString = $"{root}/api/Accounts/AddAccount?HHid={a.HHid}&accountName={a.AccountName}&accountBalance={a.AccountBalance}&createdById={a.CreatedById}&warning={a.Warning}";
+
+            var jsonResult = await ApiServices.GetDataFromService(queryString).ConfigureAwait(false);
+
+            if (jsonResult != null)
+            {
+                return -1;
+            }
+            else
+            {
+                return 500;
+            }
+        }
+        //Says post, but is a get
+        public static async Task<Int16> PostBudget(Budget b)
+        {
+            string root = APIConstants.Root;
+            string queryString = $"{root}/api/Budgets/AddBudget?HHid={b.HouseholdId}&budgetAmount={b.Amount}&budgetName={b.Name}";
+
+            var jsonResult = await ApiServices.GetDataFromService(queryString).ConfigureAwait(false);
+
+            if (jsonResult != null)
+            {
+                return -1;
+            }
+            else
+            {
+                return 500;
+            }
+        }
+        //Says post, but is a get
+        public static async Task<Int16> PostCategory(int hhId, string name)
+        {
+            string root = APIConstants.Root;
+            string queryString = $"{root}/api/Households/AddCategory?HHid={hhId}&name={name}";
 
             var jsonResult = await ApiServices.GetDataFromService(queryString).ConfigureAwait(false);
 

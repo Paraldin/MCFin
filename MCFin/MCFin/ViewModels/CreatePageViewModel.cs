@@ -32,11 +32,8 @@ namespace MCFin.ViewModels
                 case "budget":
                     page = new CreateBudgetPage();
                     break;
-                case "transaction":
-                    page = new CreateTransactionPage();
-                    break;
                 default:
-                    page = new Dashboard();
+                    page = new CreateTransactionPage();
                     break;
             }
             await _navigation.PushAsync(page);

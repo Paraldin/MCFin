@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCFin.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,14 +19,19 @@ namespace MCFin.Views
             InitializeComponent();
         }
 
-        private void submitButton_Clicked(object sender, EventArgs e)
+        private async void submitButton_Clicked(object sender, EventArgs e)
         {
             var newAccount = new PostAccount
             {
                 HHid = 1,
                 AccountName = accountEntry.Text,
-                AccountBalance = Convert.ToDecimal(balanceEntry.Text)
+                AccountBalance = Convert.ToDecimal(balanceEntry.Text),
+                CreatedById = "7a076858-6d59-457b-832b-65386b5ce532",
+                Warning = Convert.ToDecimal(warningEntry.Text)
             };
+
+            await ApiCore.PostAccount(newAccount);
+            await Navigation.PopAsync();
         }
     }
 }

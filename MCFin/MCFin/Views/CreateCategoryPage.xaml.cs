@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCFin.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,12 @@ namespace MCFin.Views
         public CreateCategoryPage()
         {
             InitializeComponent();
+        }
+
+        private async void submitButton_Clicked(object sender, EventArgs e)
+        {
+            await ApiCore.PostCategory((1), (nameEntry.Text));
+            await Navigation.PopAsync();
         }
     }
 }

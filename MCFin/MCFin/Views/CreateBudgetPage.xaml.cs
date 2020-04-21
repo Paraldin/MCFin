@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MCFin.Core;
+using MCFin.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,19 @@ namespace MCFin.Views
         public CreateBudgetPage()
         {
             InitializeComponent();
+        }
+
+        private async void submitButton_Clicked(object sender, EventArgs e)
+        {
+            Budget budget = new Budget
+            {
+                HouseholdId = 1,
+                Amount = Convert.ToDecimal(amountEntry.Text),
+                Name = nameEntry.Text
+            };
+
+            await ApiCore.PostBudget(budget);
+            await Navigation.PopAsync();
         }
     }
 }

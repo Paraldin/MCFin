@@ -38,7 +38,7 @@
         </StackLayout>
         <StackLayout Grid.Column="1" Grid.Row="1" Spacing="0" Padding="0,10,0,0" >
             <Label Text="Budget"/>
-            <Picker x:Name="budgetPicker" />
+            <Picker x:Name="budgetPicker" ItemDisplayBinding="{Binding Name}" />
         </StackLayout>
         <StackLayout Grid.Row="2" Grid.Column="0">
             <StackLayout Orientation="Horizontal">

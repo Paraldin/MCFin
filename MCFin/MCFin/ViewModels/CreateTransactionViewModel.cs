@@ -11,22 +11,16 @@ namespace MCFin.ViewModels
 {
     class CreateTransactionViewModel
     {
-        public List<PersonalAccount> testList;
+        public ObservableCollection<PersonalAccount> accountList;
         public ObservableCollection<Category> categoryList;
+        public ObservableCollection<Budget> budgetList;
 
         public CreateTransactionViewModel()
         {
-            testList = new List<PersonalAccount>
-                {
-                     new PersonalAccount { Id = 1, Name = "Test Account 1", Balance = (decimal)352.33, ReconciledBalance = (decimal)381.34 },
-                    new PersonalAccount { Id = 2, Name = "Test Account 2", Balance = (decimal)3112.33, ReconciledBalance = (decimal)381.34 },
-                    new PersonalAccount { Id = 3, Name = "Test Account 3", Balance = (decimal)152.47, ReconciledBalance = (decimal)381.34 },
-                    new PersonalAccount { Id = 4, Name = "Test Account 4", Balance = (decimal)3052.33, ReconciledBalance = (decimal)3081.34 },
-                    new PersonalAccount { Id = 5, Name = "Test Retirement", Balance = 320000, ReconciledBalance = 320000 }
-                };
-
             categoryList = new ObservableCollection<Category>();
             GetCategories();
+            GetBudgets();
+            GetAccounts();
         }
 
         public async void CreateTransaction(PostTransaction trans)
@@ -40,6 +34,17 @@ namespace MCFin.ViewModels
             {
                 categoryList.Add(cat);
             }
+        }
+
+        public async void GetBudgets()
+        {
+            var categories = await ApiCore.GetHouseholdBudgets(1);
+            budgetList = new ObservableCollection<Budget>(categories);
+        }
+        public async void GetAccounts()
+        {
+            var accounts = await ApiCore.GetPersonalAccounts(1);
+            accountList = new ObservableCollection<PersonalAccount>(accounts);
         }
     }
 }

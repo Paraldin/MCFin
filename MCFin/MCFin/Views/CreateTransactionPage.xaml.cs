@@ -23,8 +23,9 @@ namespace MCFin.Views
 
             InitializeComponent();
 
-            accountPicker.ItemsSource = ViewModel.testList;
+            accountPicker.ItemsSource = ViewModel.accountList;
             categoryPicker.ItemsSource = ViewModel.categoryList;
+            budgetPicker.ItemsSource = ViewModel.budgetList;
         }
 
         public CreateTransactionPage(int Id, AccountDetailViewModel vm)
@@ -33,15 +34,16 @@ namespace MCFin.Views
             AccountDetail = vm;
             InitializeComponent();
 
-            accountPicker.ItemsSource = ViewModel.testList;
+            accountPicker.ItemsSource = ViewModel.accountList;
             categoryPicker.ItemsSource = ViewModel.categoryList;
+            budgetPicker.ItemsSource = ViewModel.budgetList;
             accountPicker.SelectedItem = SelectedAccount(Id);
         }
 
         private PersonalAccount SelectedAccount(int Id)
         {
                 accountSection.IsVisible = false;
-                return ViewModel.testList.FirstOrDefault(a => a.Id == Id);
+                return ViewModel.accountList.FirstOrDefault(a => a.Id == Id);
         }
 
         private void submitButton_Clicked(object sender, EventArgs e)

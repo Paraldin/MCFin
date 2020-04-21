@@ -13,14 +13,14 @@
             <StackLayout>
                 <StackLayout>
                     <Label Text="Budget Name"/>
-                    <Entry />
+                    <Entry x:Name="nameEntry" />
                 </StackLayout>
                 <StackLayout>
                     <Label Text="Monthly Budget Amount"/>
-                    <Entry Keyboard="Numeric" />
+                    <Entry x:Name="amountEntry" Keyboard="Numeric" />
                 </StackLayout>
             </StackLayout>
         </Frame>
-        <Button Text="Create Budget" TextColor="White" BackgroundColor="#18588E" BorderRadius="30" />
+        <Button x:Name="submitButton" Clicked="submitButton_Clicked" Text="Create Budget" TextColor="White" BackgroundColor="#18588E" BorderRadius="30" />
     </StackLayout>
 </ContentPage>
