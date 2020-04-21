@@ -28,9 +28,8 @@ namespace MCFin.ViewModels
             SeeAllTransactions = new Command(async () => await SeeTransactions());
             GoToCreate = new Command(async () => await RenderCreate());
             _navigation = nav;
-            CallAccountList();
-            CallHouseTransactions();
-            CallBudgetList();
+            testBudgets = new ObservableCollection<Budget>();
+            accountList = new ObservableCollection<PersonalAccount>();
         }
 
         List<string> _colors = new List<string>()
@@ -42,22 +41,33 @@ namespace MCFin.ViewModels
             "#d30070",
             "#f00c4a"
         };
-
-        private void CallAccountList()
+        public async Task CallAllLists()
         {
-            List<PersonalAccount> accounts = ApiCore.GetPersonalAccounts(1).Result;
-            accountList = new ObservableCollection<PersonalAccount>(accounts);
+            accountList.Clear();
+            testBudgets.Clear();
+            await Task.WhenAll(CallBudgetList(), CallAccountList(), CallHouseTransactions());
+        }
+        private async Task CallAccountList()
+        {
+            List<PersonalAccount> accounts = await ApiCore.GetPersonalAccounts(1).ConfigureAwait(false);
+            foreach(var a in accounts)
+            {
+                accountList.Add(a);
+            }
         }
 
-        private void CallBudgetList()
+        private async Task CallBudgetList()
         {
-            List<Budget> budgets = ApiCore.GetHouseholdBudgets(1).Result;
-            testBudgets = new ObservableCollection<Budget>(budgets);
+            List<Budget> budgets = await ApiCore.GetHouseholdBudgets(1).ConfigureAwait(false);
+            foreach(var b in budgets)
+            {
+                testBudgets.Add(b);
+            }
         }
 
-        private void CallHouseTransactions()
+        private async Task CallHouseTransactions()
         {
-            List<Transaction> transactions = ApiCore.GetHouseholdTransactions(1, DateTimeOffset.Now.Month, DateTimeOffset.Now.Year).Result;
+            List<Transaction> transactions = await ApiCore.GetHouseholdTransactions(1, DateTimeOffset.Now.Month, DateTimeOffset.Now.Year).ConfigureAwait(false);
 
             entries = new List<Entry>();
             var categoryValues = new Dictionary<string, decimal>();

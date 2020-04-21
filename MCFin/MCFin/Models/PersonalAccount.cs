@@ -1,12 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using MCFin.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MCFin.Models
 {
-    public partial class PersonalAccount
+    public partial class PersonalAccount : BaseViewModel
     {
+
         [JsonProperty("Id")]
         public int Id { get; set; }
 
@@ -16,8 +18,14 @@ namespace MCFin.Models
         [JsonProperty("Name")]
         public string Name { get; set; }
 
+        private decimal _balance;
         [JsonProperty("Balance")]
-        public decimal Balance { get; set; }
+        public decimal Balance { 
+            get { return _balance; } 
+            set 
+            {
+                SetProperty(ref _balance, value);
+            } }
 
         [JsonProperty("ReconciledBalance")]
         public decimal ReconciledBalance { get; set; }
@@ -30,6 +38,8 @@ namespace MCFin.Models
 
         [JsonProperty("IsDeleted")]
         public bool IsDeleted { get; set; }
+
+
         public PersonalAccount()
         {
             Name = " ";

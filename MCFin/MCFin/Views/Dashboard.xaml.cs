@@ -13,15 +13,17 @@ using MCFin.Models;
 namespace MCFin.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+
     public partial class Dashboard : ContentPage
     {
+    private DashboardViewModel vm { get; set; }
         public Dashboard()
         {
             InitializeComponent();
 
-            DashboardViewModel vm = new DashboardViewModel(Navigation);
+            vm = new DashboardViewModel(Navigation);
             BindingContext = vm;
-            ChartOne.Chart = new DonutChart() { Entries = vm.entries, HoleRadius = .8f, LabelTextSize = 30, BackgroundColor = SkiaSharp.SKColor.Parse("#00FFFFFF") };
+            App.dashboardViewModel = vm;
         }
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -42,11 +44,12 @@ namespace MCFin.Views
             budgetList.SelectedItem = null;
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
-            accountList.SelectedItem = null;
-
+            accountListView.SelectedItem = null;
+            await vm.CallAllLists();
             base.OnAppearing();
+            ChartOne.Chart = new DonutChart() { Entries = vm.entries, HoleRadius = .8f, LabelTextSize = 30, BackgroundColor = SkiaSharp.SKColor.Parse("#00FFFFFF") };
         }
 
     }

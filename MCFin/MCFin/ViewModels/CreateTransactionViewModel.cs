@@ -3,6 +3,7 @@ using MCFin.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -18,6 +19,8 @@ namespace MCFin.ViewModels
         public CreateTransactionViewModel()
         {
             categoryList = new ObservableCollection<Category>();
+            accountList = new ObservableCollection<PersonalAccount>();
+            budgetList = new ObservableCollection<Budget>();
             GetCategories();
             GetBudgets();
             GetAccounts();
@@ -26,6 +29,8 @@ namespace MCFin.ViewModels
         public async void CreateTransaction(PostTransaction trans)
         {
             await ApiCore.PostTransaction(trans.Description, trans.Date, trans.Amount, trans.Type, trans.AccountId, trans.CategoryId, trans.EnteredById, trans.BudgetItemId);
+            var difference = trans.Type == false ? trans.Amount : trans.Amount * -1;
+            App.dashboardViewModel.accountList.FirstOrDefault(a => a.Id == trans.AccountId).Balance += difference;
         }
         public async void GetCategories()
         {
@@ -38,13 +43,19 @@ namespace MCFin.ViewModels
 
         public async void GetBudgets()
         {
-            var categories = await ApiCore.GetHouseholdBudgets(1);
-            budgetList = new ObservableCollection<Budget>(categories);
+            var budgets = await ApiCore.GetHouseholdBudgets(1);
+            foreach(var b in budgets)
+            {
+                budgetList.Add(b);
+            }
         }
         public async void GetAccounts()
         {
             var accounts = await ApiCore.GetPersonalAccounts(1);
-            accountList = new ObservableCollection<PersonalAccount>(accounts);
+            foreach (var a in accounts)
+            {
+                accountList.Add(a);
+            }
         }
     }
 }

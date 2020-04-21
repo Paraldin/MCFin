@@ -32,7 +32,7 @@
                 <Label Text="This Month's Spending" HorizontalOptions="Center"/>
                 <forms:ChartView x:Name="ChartOne" HeightRequest="100"/>
             </StackLayout>
-            <ListView x:Name="accountList" ItemsSource="{Binding accountList}" Grid.Row="1" ItemSelected="ListView_ItemSelected">
+            <ListView x:Name="accountListView" ItemsSource="{Binding accountList}" Grid.Row="1" ItemSelected="ListView_ItemSelected">
                 <ListView.Header>
                     <Label Text="Bank Accounts"/>
                 </ListView.Header>

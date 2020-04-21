@@ -16,7 +16,7 @@ namespace MCFin.Views
     public partial class CreateTransactionPage : ContentPage
     {
         CreateTransactionViewModel ViewModel { get; set; }
-        AccountDetailViewModel AccountDetail { get; set; }
+        int acctId;
         public CreateTransactionPage()
         {
             ViewModel = new CreateTransactionViewModel();
@@ -31,19 +31,13 @@ namespace MCFin.Views
         public CreateTransactionPage(int Id, AccountDetailViewModel vm)
         {
             ViewModel = new CreateTransactionViewModel();
-            AccountDetail = vm;
+            acctId = Id;
             InitializeComponent();
 
             accountPicker.ItemsSource = ViewModel.accountList;
             categoryPicker.ItemsSource = ViewModel.categoryList;
             budgetPicker.ItemsSource = ViewModel.budgetList;
-            accountPicker.SelectedItem = SelectedAccount(Id);
-        }
-
-        private PersonalAccount SelectedAccount(int Id)
-        {
-                accountSection.IsVisible = false;
-                return ViewModel.accountList.FirstOrDefault(a => a.Id == Id);
+            accountSection.IsVisible = false;
         }
 
         private void submitButton_Clicked(object sender, EventArgs e)
@@ -55,10 +49,10 @@ namespace MCFin.Views
                 Date = (DateTimeOffset)datePicker.Date,
                 Amount = Convert.ToDecimal(amountEntry.Text),
                 Type = expenseBox.IsChecked,
-                AccountId = (accountPicker.SelectedItem as PersonalAccount).Id,
+                AccountId = accountPicker.SelectedItem == null ? acctId : (accountPicker.SelectedItem as PersonalAccount).Id,
                 CategoryId = (categoryPicker.SelectedItem as Category).Id,
                 EnteredById = "7a076858-6d59-457b-832b-65386b5ce532",
-                BudgetItemId = budgetPicker.SelectedItem != null ? (budgetPicker.SelectedItem as Category).Id : 0
+                BudgetItemId = budgetPicker.SelectedItem != null ? (budgetPicker.SelectedItem as Budget).Id : 0
             };
 
             ViewModel.CreateTransaction(transaction);

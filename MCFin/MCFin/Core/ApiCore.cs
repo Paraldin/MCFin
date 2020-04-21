@@ -37,7 +37,8 @@ namespace MCFin.Core
             var jsonResult = await ApiServices.GetDataFromService(queryString).ConfigureAwait(false);
             if (jsonResult != null)
             {
-                return JsonConvert.DeserializeObject<List<PersonalAccount>>(jsonResult);
+                List<PersonalAccount> personalAccounts = JsonConvert.DeserializeObject<List<PersonalAccount>>(jsonResult);
+                return personalAccounts;
             }
             else
             {
@@ -54,7 +55,8 @@ namespace MCFin.Core
 
             if (jsonResult != null)
             {
-                return JsonConvert.DeserializeObject<List<Transaction>>(jsonResult);
+                List<Transaction> ts = JsonConvert.DeserializeObject<List<Transaction>>(jsonResult);
+                return ts;
             }
             else
             {
@@ -70,7 +72,8 @@ namespace MCFin.Core
 
             if (jsonResult != null)
             {
-                return JsonConvert.DeserializeObject<List<Budget>>(jsonResult);
+                List<Budget> bs = JsonConvert.DeserializeObject<List<Budget>>(jsonResult);
+                return bs;
             }
             else
             {

@@ -23,6 +23,7 @@ namespace MCFin.Views
             vm = new AccountDetailViewModel(account, Navigation);
 
             BindingContext = vm;
+            transactionList.ItemsSource = vm.transactionCollection;
 
             acctId = account.Id;
 
@@ -32,7 +33,6 @@ namespace MCFin.Views
         protected async override void OnAppearing()
         {
             await vm.GetTransactions(acctId);
-            transactionList.ItemsSource = vm.transactionCollection;
 
             base.OnAppearing();
         }

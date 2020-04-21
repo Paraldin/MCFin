@@ -1,12 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using MCFin.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MCFin.Models
 {
-    public partial class Budget
+    public partial class Budget : BaseViewModel
     {
+        private decimal _balance;
         [JsonProperty("Id")]
         public int Id { get; set; }
 
@@ -23,6 +25,12 @@ namespace MCFin.Models
         public int HouseholdId { get; set; }
 
         [JsonProperty("CurrentBalance")]
-        public decimal CurrentBalance { get; set; }
+        public decimal CurrentBalance {
+            get { return _balance; }
+            set
+            {
+                SetProperty(ref _balance, value);
+            }
+        }
     }
 }
