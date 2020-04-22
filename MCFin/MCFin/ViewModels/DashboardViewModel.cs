@@ -49,7 +49,7 @@ namespace MCFin.ViewModels
         }
         private async Task CallAccountList()
         {
-            List<PersonalAccount> accounts = await ApiCore.GetPersonalAccounts(1).ConfigureAwait(false);
+            List<PersonalAccount> accounts = await ApiCore.GetPersonalAccounts(Constants.APIConstants.HouseId).ConfigureAwait(false);
             foreach(var a in accounts)
             {
                 accountList.Add(a);
@@ -58,7 +58,7 @@ namespace MCFin.ViewModels
 
         private async Task CallBudgetList()
         {
-            List<Budget> budgets = await ApiCore.GetHouseholdBudgets(1).ConfigureAwait(false);
+            List<Budget> budgets = await ApiCore.GetHouseholdBudgets(Constants.APIConstants.HouseId).ConfigureAwait(false);
             foreach(var b in budgets)
             {
                 testBudgets.Add(b);
@@ -67,7 +67,7 @@ namespace MCFin.ViewModels
 
         private async Task CallHouseTransactions()
         {
-            List<Transaction> transactions = await ApiCore.GetHouseholdTransactions(1, DateTimeOffset.Now.Month, DateTimeOffset.Now.Year).ConfigureAwait(false);
+            List<Transaction> transactions = await ApiCore.GetHouseholdTransactions(Constants.APIConstants.HouseId, DateTimeOffset.Now.Month, DateTimeOffset.Now.Year).ConfigureAwait(false);
 
             entries = new List<Entry>();
             var categoryValues = new Dictionary<string, decimal>();

@@ -51,7 +51,7 @@ namespace MCFin.Views
                 Type = expenseBox.IsChecked,
                 AccountId = accountPicker.SelectedItem == null ? acctId : (accountPicker.SelectedItem as PersonalAccount).Id,
                 CategoryId = (categoryPicker.SelectedItem as Category).Id,
-                EnteredById = "7a076858-6d59-457b-832b-65386b5ce532",
+                EnteredById = Constants.APIConstants.UserId,
                 BudgetItemId = budgetPicker.SelectedItem != null ? (budgetPicker.SelectedItem as Budget).Id : 0
             };
 

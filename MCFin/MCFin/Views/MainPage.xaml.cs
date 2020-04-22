@@ -1,5 +1,6 @@
 ﻿using MCFin.Constants;
 using MCFin.Core;
+using MCFin.Services;
 using MCFin.Views;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,10 @@ namespace MCFin
             loginButton.IsEnabled = false;
             try
             {
-                var result = await APIConstants.Authenticate(emailEntry.Text, passwordEntry.Text);
+                var result = await ApiCore.Authenticate(emailEntry.Text, passwordEntry.Text);
+                var userInfo = await ApiServices.EncodedGetData(result.Access_Token);
+                APIConstants.HouseId = userInfo.HouseId;
+                APIConstants.UserId = userInfo.GuidId;
                 loginMessage.IsVisible = false;
                 await Navigation.PushAsync(new Dashboard());
                 loginButton.IsEnabled = true;

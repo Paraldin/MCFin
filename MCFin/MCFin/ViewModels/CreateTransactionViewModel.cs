@@ -34,7 +34,7 @@ namespace MCFin.ViewModels
         }
         public async void GetCategories()
         {
-            var categories = await ApiCore.GetHouseholdCategories(1);
+            var categories = await ApiCore.GetHouseholdCategories(Constants.APIConstants.HouseId);
             foreach(var cat in categories)
             {
                 categoryList.Add(cat);
@@ -43,7 +43,7 @@ namespace MCFin.ViewModels
 
         public async void GetBudgets()
         {
-            var budgets = await ApiCore.GetHouseholdBudgets(1);
+            var budgets = await ApiCore.GetHouseholdBudgets(Constants.APIConstants.HouseId);
             foreach(var b in budgets)
             {
                 budgetList.Add(b);
@@ -51,7 +51,7 @@ namespace MCFin.ViewModels
         }
         public async void GetAccounts()
         {
-            var accounts = await ApiCore.GetPersonalAccounts(1);
+            var accounts = await ApiCore.GetPersonalAccounts(Constants.APIConstants.HouseId);
             foreach (var a in accounts)
             {
                 accountList.Add(a);

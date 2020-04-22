@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using static MCFin.Models.PersonalAccount;
@@ -203,6 +204,28 @@ namespace MCFin.Core
             string queryString = $"{root}/api/Accounts/DeleteTransaction?transId={transId}";
 
             var jsonResult = await ApiServices.GetDataFromService(queryString).ConfigureAwait(false);
+        }
+        public static async Task<AuthenticatedUser> Authenticate(string username, string password)
+        {
+            var data = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("grant_type", "password"),
+                new KeyValuePair<string, string>("username", username),
+                new KeyValuePair<string, string>("password", password),
+            });
+
+            using (HttpResponseMessage response = await APIConstants.Client.PostAsync("/Token", data))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<AuthenticatedUser>();
+                    return result;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
         }
     }
 }

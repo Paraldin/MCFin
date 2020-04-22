@@ -23,10 +23,10 @@ namespace MCFin.Views
         {
             var newAccount = new PostAccount
             {
-                HHid = 1,
+                HHid = Constants.APIConstants.HouseId,
                 AccountName = accountEntry.Text,
                 AccountBalance = Convert.ToDecimal(balanceEntry.Text),
-                CreatedById = "7a076858-6d59-457b-832b-65386b5ce532",
+                CreatedById = Constants.APIConstants.UserId,
                 Warning = Convert.ToDecimal(warningEntry.Text)
             };
 

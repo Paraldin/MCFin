@@ -23,7 +23,7 @@ namespace MCFin.Views
         {
             Budget budget = new Budget
             {
-                HouseholdId = 1,
+                HouseholdId = Constants.APIConstants.HouseId,
                 Amount = Convert.ToDecimal(amountEntry.Text),
                 Name = nameEntry.Text
             };

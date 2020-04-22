@@ -22,28 +22,5 @@ namespace MCFin.Constants
             Client.DefaultRequestHeaders.Accept.Clear();
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
-        public static async Task<AuthenticatedUser> Authenticate(string username, string password)
-        {
-            var data = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("grant_type", "password"),
-                new KeyValuePair<string, string>("username", username),
-                new KeyValuePair<string, string>("password", password),
-            });
-
-            using (HttpResponseMessage response = await Client.PostAsync("/Token", data))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsAsync<AuthenticatedUser>();
-                    return result;
-                }
-                else
-                {
-                    throw new Exception(response.ReasonPhrase);
-                }
-            }
-        }
     }
 }

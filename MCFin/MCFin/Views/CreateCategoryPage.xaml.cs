@@ -20,7 +20,7 @@ namespace MCFin.Views
 
         private async void submitButton_Clicked(object sender, EventArgs e)
         {
-            await ApiCore.PostCategory((1), (nameEntry.Text));
+            await ApiCore.PostCategory((Constants.APIConstants.HouseId), (nameEntry.Text));
             await Navigation.PopAsync();
         }
     }
