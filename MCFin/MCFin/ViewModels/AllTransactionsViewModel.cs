@@ -1,4 +1,5 @@
-﻿using MCFin.Core;
+﻿using MCFin.Constants;
+using MCFin.Core;
 using MCFin.Models;
 using MCFin.Views;
 using System;
@@ -26,7 +27,7 @@ namespace MCFin.ViewModels
         }
         private void GetAllTransactions()
         {
-            List<Transaction> allTransactions = ApiCore.GetHouseholdTransactions(1,0,0).Result;
+            List<Transaction> allTransactions = ApiCore.GetHouseholdTransactions(APIConstants.HouseId,0,0).Result;
             allTransactions = allTransactions.OrderByDescending(t => t.Date).ToList();
             transactions = new ObservableCollection<Transaction>(allTransactions);
         }
