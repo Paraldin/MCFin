@@ -16,31 +16,30 @@ namespace MCFin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AccountDetailPage : ContentPage
     {
-        int acctId;
+        PersonalAccount acct;
         AccountDetailViewModel vm { get; set; }
         public AccountDetailPage(PersonalAccount account)
         {
             vm = new AccountDetailViewModel(account, Navigation);
 
             BindingContext = vm;
-            transactionList.ItemsSource = vm.transactionCollection;
 
-            acctId = account.Id;
+            acct = account;
 
             InitializeComponent();
         }
 
         protected async override void OnAppearing()
         {
-            await vm.GetTransactions(acctId);
+            await vm.GetTransactions(acct.Id);
+            transactionList.ItemsSource = vm.transactionCollection;
 
             base.OnAppearing();
         }
 
         private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            await Navigation.PushModalAsync(new TransactionDetailPage((Transaction)e.Item));
-
+            await Navigation.PushAsync(new TransactionDetailPage(((Transaction)e.Item), acct));
             ((ListView)sender).SelectedItem = null;
         }
 

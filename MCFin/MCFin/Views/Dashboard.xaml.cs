@@ -49,7 +49,7 @@ namespace MCFin.Views
             accountListView.SelectedItem = null;
             await vm.CallAllLists();
             base.OnAppearing();
-            ChartOne.Chart = new DonutChart() { Entries = vm.entries, HoleRadius = .8f, LabelTextSize = 30, BackgroundColor = SkiaSharp.SKColor.Parse("#00FFFFFF") };
+            ChartOne.Chart = new DonutChart() { Entries = vm.entries, HoleRadius = .8f, LabelTextSize = 28, BackgroundColor = SkiaSharp.SKColor.Parse("#00FFFFFF") };
         }
 
     }

@@ -40,7 +40,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Spacing="30" Padding="20,0,0,0">
-                            <Label Text="{Binding CatName}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                            <Label Text="{Binding CatName}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="End"/>
                             <Label Text="{Binding BudgetName}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="End"/>
                             <Label Text="{Binding Amount, StringFormat='{0:C}'}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="5,0,0,0"/>
                         </StackLayout>

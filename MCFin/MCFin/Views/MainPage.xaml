@@ -29,8 +29,9 @@
             </Grid.RowDefinitions>
             <Frame IsClippedToBounds="True" CornerRadius="30">
                 <StackLayout>
-                    <Entry IsPassword="False" Placeholder="Email" Keyboard="Email" />
-                    <Entry IsPassword="True" Placeholder="Password" />
+                    <Label x:Name="loginMessage" Text="Invalid Username or Password" TextColor="Red" IsVisible="False"/>
+                    <Entry x:Name="emailEntry" IsPassword="False" Placeholder="Email" Keyboard="Email" TextChanged="entry_TextChanged" />
+                    <Entry x:Name="passwordEntry" IsPassword="True" Placeholder="Password" TextChanged="entry_TextChanged" />
                 </StackLayout>
             </Frame>
             <Button x:Name="loginButton" Grid.Row="1" Text="Login" CornerRadius="30" BackgroundColor="#18588E" TextColor="White" Clicked="Login_Clicked"/>

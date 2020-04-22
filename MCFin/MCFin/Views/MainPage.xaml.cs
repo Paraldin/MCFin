@@ -1,4 +1,6 @@
-﻿using MCFin.Views;
+﻿using MCFin.Constants;
+using MCFin.Core;
+using MCFin.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,9 +23,31 @@ namespace MCFin
 
         private async void Login_Clicked(object sender, EventArgs e)
         {
+            await Login();
+        }
+        private async Task Login()
+        {
             loginButton.IsEnabled = false;
-            await Navigation.PushAsync(new Dashboard()); 
+            try
+            {
+                var result = await APIConstants.Authenticate(emailEntry.Text, passwordEntry.Text);
+                loginMessage.IsVisible = false;
+                await Navigation.PushAsync(new Dashboard());
+                loginButton.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                loginMessage.IsVisible = true;
+                loginMessage.Text = ex.Message;
+            }
+        }
 
+        private void entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!loginButton.IsEnabled)
+            {
+                loginButton.IsEnabled = true;
+            }
         }
     }
 }

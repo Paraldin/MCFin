@@ -13,6 +13,7 @@ namespace MCFin
             InitializeComponent();
 
             MainPage = new NavigationPage(new MainPage());
+            Constants.APIConstants.IntializeClient();
         }
 
         protected override void OnStart()

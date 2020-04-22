@@ -33,7 +33,7 @@ namespace MCFin.ViewModels
 
         private async void TransactionDetail(Transaction transaction)
         {
-            await _navigation.PushModalAsync(new TransactionDetailPage(transaction));
+            await _navigation.PushAsync(new TransactionDetailPage(transaction));
         }
     }
 }

@@ -31,7 +31,7 @@
         </StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Button Text="Reconcile" HorizontalOptions="FillAndExpand" BackgroundColor="DarkGreen" TextColor="White" Command="{Binding ReconcileTransaction}" IsVisible="{Binding Transaction.Reconciled, Converter={Helper:InverseBoolConverter}}"/>
-            <Button  Text="Delete" HorizontalOptions="FillAndExpand" BackgroundColor="Maroon" TextColor="White"/>
+            <Button  Text="Delete" HorizontalOptions="FillAndExpand" BackgroundColor="Maroon" TextColor="White" Command="{Binding DeleteTransaction}"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

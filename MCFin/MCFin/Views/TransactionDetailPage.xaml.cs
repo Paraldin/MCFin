@@ -1,4 +1,5 @@
-﻿using MCFin.Models;
+﻿using MCFin.Interfaces;
+using MCFin.Models;
 using MCFin.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,13 @@ namespace MCFin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TransactionDetailPage : ContentPage
     {
+        public TransactionDetailPage(Transaction trans, IHasBalance fromModel)
+        {
+            TransactionDetailViewModel vm = new TransactionDetailViewModel(trans, Navigation, fromModel);
+
+            BindingContext = vm;
+            InitializeComponent();
+        }
         public TransactionDetailPage(Transaction trans)
         {
             TransactionDetailViewModel vm = new TransactionDetailViewModel(trans, Navigation);

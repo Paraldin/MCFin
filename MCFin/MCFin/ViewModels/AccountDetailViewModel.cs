@@ -22,7 +22,6 @@ namespace MCFin.ViewModels
             personalAccount = account;
             _navigation = nav;
             AddTransaction = new Command(async () => await CreateTransaction());
-            transactionCollection = new ObservableCollection<Transaction>();
         }
 
         private async Task CreateTransaction()
@@ -33,12 +32,8 @@ namespace MCFin.ViewModels
         public async Task GetTransactions(int acctId)
         {
             List<Transaction> transactions = await ApiCore.GetAccountTransactions(acctId);
-            transactionCollection.Clear();
             transactions = transactions.OrderByDescending(t => t.Date).ToList();
-            foreach(var t in transactions)
-            {
-                transactionCollection.Add(t);
-            }
+            transactionCollection = new ObservableCollection<Transaction>(transactions);
         }
     }
 }

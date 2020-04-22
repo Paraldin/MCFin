@@ -14,8 +14,10 @@ namespace MCFin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BudgetDetailPage : ContentPage
     {
+        private Budget _budget;
         public BudgetDetailPage(Budget budget)
         {
+            _budget = budget;
             var vm = new BudgetDetailViewModel(budget, Navigation);
             InitializeComponent();
             BindingContext = vm;
@@ -24,7 +26,7 @@ namespace MCFin.Views
 
         private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            await Navigation.PushModalAsync(new TransactionDetailPage((Transaction)e.Item));
+            await Navigation.PushAsync(new TransactionDetailPage(((Transaction)e.Item), _budget));
 
             ((ListView)sender).SelectedItem = null;
         }

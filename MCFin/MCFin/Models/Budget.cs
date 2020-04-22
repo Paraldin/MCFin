@@ -1,4 +1,5 @@
-﻿using MCFin.ViewModels;
+﻿using MCFin.Interfaces;
+using MCFin.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace MCFin.Models
 {
-    public partial class Budget : BaseViewModel
+    public partial class Budget : BaseViewModel, IHasBalance
     {
         private decimal _balance;
         [JsonProperty("Id")]
@@ -31,6 +32,11 @@ namespace MCFin.Models
             {
                 SetProperty(ref _balance, value);
             }
+        }
+
+        public void UpdateBalance(decimal amount)
+        {
+            this.CurrentBalance -= amount;
         }
     }
 }

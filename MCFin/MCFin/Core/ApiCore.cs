@@ -197,5 +197,12 @@ namespace MCFin.Core
                 return 500;
             }
         }
+        public static async Task DeleteTransaction(int transId)
+        {
+            string root = APIConstants.Root;
+            string queryString = $"{root}/api/Accounts/DeleteTransaction?transId={transId}";
+
+            var jsonResult = await ApiServices.GetDataFromService(queryString).ConfigureAwait(false);
+        }
     }
 }

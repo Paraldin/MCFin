@@ -23,14 +23,14 @@
     <ScrollView>
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="110"/>
+                <RowDefinition Height="120"/>
                 <RowDefinition Height="150"/>
                 <RowDefinition Height="150"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <StackLayout>
                 <Label Text="This Month's Spending" HorizontalOptions="Center"/>
-                <forms:ChartView x:Name="ChartOne" HeightRequest="100"/>
+                <forms:ChartView x:Name="ChartOne" HeightRequest="110"/>
             </StackLayout>
             <ListView x:Name="accountListView" ItemsSource="{Binding accountList}" Grid.Row="1" ItemSelected="ListView_ItemSelected">
                 <ListView.Header>
