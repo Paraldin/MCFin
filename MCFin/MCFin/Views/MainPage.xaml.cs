@@ -1,6 +1,9 @@
 ﻿using MCFin.Constants;
 using MCFin.Core;
+using MCFin.Helpers;
+using MCFin.Models;
 using MCFin.Services;
+using MCFin.ViewModels;
 using MCFin.Views;
 using System;
 using System.Collections.Generic;
@@ -17,41 +20,18 @@ namespace MCFin
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        
         public MainPage()
         {
             InitializeComponent();
-        }
-
-        private async void Login_Clicked(object sender, EventArgs e)
-        {
-            await Login();
-        }
-        private async Task Login()
-        {
-            loginButton.IsEnabled = false;
-            try
-            {
-                var result = await ApiCore.Authenticate(emailEntry.Text, passwordEntry.Text);
-                var userInfo = await ApiServices.EncodedGetData(result.Access_Token);
-                APIConstants.HouseId = userInfo.HouseId;
-                APIConstants.UserId = userInfo.GuidId;
-                loginMessage.IsVisible = false;
-                await Navigation.PushAsync(new Dashboard());
-                loginButton.IsEnabled = true;
-            }
-            catch (Exception ex)
-            {
-                loginMessage.IsVisible = true;
-                loginMessage.Text = ex.Message;
-            }
+            BindingContext = new LoginPageViewModel(this);
         }
 
         private void entry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!loginButton.IsEnabled)
-            {
-                loginButton.IsEnabled = true;
-            }
+            LoginForm_UsernameError.IsVisible = false;
+            LoginForm_PasswordError.IsVisible = false;
+            loginMessage.IsVisible = false;
         }
     }
 }

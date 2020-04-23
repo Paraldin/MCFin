@@ -25,16 +25,22 @@
         <Grid Padding="40,20,40,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Frame IsClippedToBounds="True" CornerRadius="30">
                 <StackLayout>
-                    <Label x:Name="loginMessage" Text="Invalid Username or Password" TextColor="Red" IsVisible="False"/>
-                    <Entry x:Name="emailEntry" IsPassword="False" Placeholder="Email" Keyboard="Email" TextChanged="entry_TextChanged" />
-                    <Entry x:Name="passwordEntry" IsPassword="True" Placeholder="Password" TextChanged="entry_TextChanged" />
+                    <Label x:Name="loginMessage" Text="Incorrect Username or Password" TextColor="Red" IsVisible="False" />
+                    <StackLayout Spacing="-20">
+                        <Label x:Name="LoginForm_UsernameError" IsVisible="False" TextColor="Red" />
+                        <Entry Text="{Binding LoginModel.Username}" Placeholder="Email" Keyboard="Email" TextChanged="entry_TextChanged" />
+                    </StackLayout>
+                    <StackLayout Spacing="-20">
+                        <Label x:Name="LoginForm_PasswordError" IsVisible="False" TextColor="Red" />
+                        <Entry Text="{Binding LoginModel.Password}"  IsPassword="True" Placeholder="Password" TextChanged="entry_TextChanged" />
+                    </StackLayout>
                 </StackLayout>
             </Frame>
-            <Button x:Name="loginButton" Grid.Row="1" Text="Login" CornerRadius="30" BackgroundColor="#18588E" TextColor="White" Clicked="Login_Clicked"/>
+            <Button x:Name="submitButton" Command="{Binding LoginInCommand}" Grid.Row="1" Text="Login" CornerRadius="30" BackgroundColor="#18588E" TextColor="White" />
         </Grid>
     </StackLayout>
 

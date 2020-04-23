@@ -56,6 +56,7 @@ namespace MCFin.Views
             };
 
             ViewModel.CreateTransaction(transaction);
+            App.dashboardViewModel.CallAllLists();
             Navigation.PopAsync();
         }
     }

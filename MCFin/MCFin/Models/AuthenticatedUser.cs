@@ -12,6 +12,6 @@ namespace MCFin.Models
     public class UserInfo
     {
         public string GuidId { get; set; }
-        public int HouseId { get; set; }
+        public int? HouseholdId { get; set; }
     }
 }

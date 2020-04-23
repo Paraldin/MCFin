@@ -47,7 +47,7 @@ namespace MCFin.Views
         protected async override void OnAppearing()
         {
             accountListView.SelectedItem = null;
-            await vm.CallAllLists();
+
             base.OnAppearing();
             ChartOne.Chart = new DonutChart() { Entries = vm.entries, HoleRadius = .8f, LabelTextSize = 28, BackgroundColor = SkiaSharp.SKColor.Parse("#00FFFFFF") };
         }

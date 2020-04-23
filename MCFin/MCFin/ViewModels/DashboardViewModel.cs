@@ -30,6 +30,7 @@ namespace MCFin.ViewModels
             _navigation = nav;
             testBudgets = new ObservableCollection<Budget>();
             accountList = new ObservableCollection<PersonalAccount>();
+            CallAllLists();
         }
 
         List<string> _colors = new List<string>()
