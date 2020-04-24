@@ -56,9 +56,9 @@ namespace MCFin.ViewModels
             Transaction.IsDeleted = true;
             if(_model != null)
             _model.UpdateBalance(Transaction.Amount);
-            await ApiCore.DeleteTransaction(transId).ConfigureAwait(false);
-            await _navigation.PopAsync();
+            await ApiCore.DeleteTransaction(transId);
             App.dashboardViewModel.CallAllLists();
+            await _navigation.PopAsync();
         }
     }
 }
