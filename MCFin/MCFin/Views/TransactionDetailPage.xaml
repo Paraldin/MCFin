@@ -17,14 +17,13 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     
-    <StackLayout VerticalOptions="CenterAndExpand">
+    <StackLayout VerticalOptions="CenterAndExpand" Spacing="20">
         <Label Text="{Binding Transaction.Description}" HorizontalTextAlignment="Center"/>
         <BoxView BackgroundColor="Black" HeightRequest="1" />
         <StackLayout Orientation="Horizontal" Padding="0,30,0,0">
             <Label Text="{Binding Transaction.CatName}"/>
             <Label Text="{Binding Transaction.Amount, StringFormat='{0:C}'}" HorizontalOptions="EndAndExpand"/>
         </StackLayout>
-        <Label Text="{Binding Transaction.budgetName}" HorizontalOptions="CenterAndExpand"/>
         <StackLayout Orientation="Horizontal" Padding="0,0,40,40">
             <Label Text="Has Been Reconciled?"/>
             <Image Source="{Binding Image}" HeightRequest="32" WidthRequest="32" HorizontalOptions="EndAndExpand"/>

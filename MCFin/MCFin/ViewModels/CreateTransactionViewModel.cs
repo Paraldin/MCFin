@@ -6,7 +6,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace MCFin.ViewModels
 {
@@ -15,8 +17,9 @@ namespace MCFin.ViewModels
         public ObservableCollection<PersonalAccount> accountList;
         public ObservableCollection<Category> categoryList;
         public ObservableCollection<Budget> budgetList;
+        private readonly INavigation _nav;
 
-        public CreateTransactionViewModel()
+        public CreateTransactionViewModel(INavigation nav)
         {
             categoryList = new ObservableCollection<Category>();
             accountList = new ObservableCollection<PersonalAccount>();
@@ -24,13 +27,31 @@ namespace MCFin.ViewModels
             GetCategories();
             GetBudgets();
             GetAccounts();
+            _nav = nav;
         }
 
         public async void CreateTransaction(PostTransaction trans)
         {
-            await ApiCore.PostTransaction(trans.Description, trans.Date, trans.Amount, trans.Type, trans.AccountId, trans.CategoryId, trans.EnteredById, trans.BudgetItemId);
-            var difference = trans.Type == false ? trans.Amount : trans.Amount * -1;
-            App.dashboardViewModel.accountList.FirstOrDefault(a => a.Id == trans.AccountId).Balance += difference;
+            try
+            {
+                await ApiCore.PostTransaction(trans.Description, trans.Date, trans.Amount, trans.Type, trans.AccountId, trans.CategoryId, trans.EnteredById, trans.BudgetItemId);
+                var difference = trans.Amount;
+                App.dashboardViewModel.accountList.FirstOrDefault(a => a.Id == trans.AccountId).Balance += difference;
+                if(trans.BudgetItemId != 0)
+                {
+                    App.dashboardViewModel.testBudgets.FirstOrDefault(a => a.Id == trans.BudgetItemId).CurrentBalance += difference;
+                }
+                await App.dashboardViewModel.CallHouseTransactions();
+
+            }
+            catch (Exception)
+            {
+                Log.Warning("Danger", "Something went wrong creating transactions");
+            }
+            finally
+            {
+                await _nav.PopAsync();
+            }
         }
         public async void GetCategories()
         {
@@ -56,6 +77,13 @@ namespace MCFin.ViewModels
             {
                 accountList.Add(a);
             }
+        }
+
+        public async Task CreateTransaction()
+        {
+            
+
+            await _nav.PopAsync();
         }
     }
 }

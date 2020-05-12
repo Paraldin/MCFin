@@ -24,6 +24,9 @@ namespace MCFin.Models
 
         [JsonProperty("HouseholdId")]
         public int HouseholdId { get; set; }
+        
+        [JsonProperty("IsDeleted")]
+        public bool IsDeleted { get; set; }
 
         [JsonProperty("CurrentBalance")]
         public decimal CurrentBalance {

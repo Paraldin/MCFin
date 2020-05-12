@@ -1,4 +1,5 @@
-﻿using MCFin.Core;
+﻿
+using MCFin.Core;
 using MCFin.Models;
 using MCFin.Views;
 using System;
@@ -51,7 +52,7 @@ namespace MCFin.ViewModels
         private async Task CallAccountList()
         {
             List<PersonalAccount> accounts = await ApiCore.GetPersonalAccounts(Constants.APIConstants.HouseId).ConfigureAwait(false);
-            foreach(var a in accounts)
+            foreach(var a in accounts.Where(b => b.IsDeleted == false))
             {
                 accountList.Add(a);
             }
@@ -60,13 +61,13 @@ namespace MCFin.ViewModels
         private async Task CallBudgetList()
         {
             List<Budget> budgets = await ApiCore.GetHouseholdBudgets(Constants.APIConstants.HouseId).ConfigureAwait(false);
-            foreach(var b in budgets)
+            foreach(var b in budgets.Where(b => b.IsDeleted == false))
             {
                 testBudgets.Add(b);
             }
         }
 
-        private async Task CallHouseTransactions()
+        public async Task CallHouseTransactions()
         {
             List<Transaction> transactions = await ApiCore.GetHouseholdTransactions(Constants.APIConstants.HouseId, DateTimeOffset.Now.Month, DateTimeOffset.Now.Year).ConfigureAwait(false);
 

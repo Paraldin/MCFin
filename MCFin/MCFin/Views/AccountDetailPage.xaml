@@ -36,10 +36,10 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" Spacing="30" Padding="20,0,0,0">
-                            <Label Text="{Binding CatName}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                            <Label Text="{Binding Date, StringFormat='{0:MMMM dd}'}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                            <Label Text="{Binding Amount, StringFormat='{0:C}'}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="5,0,0,0"/>
+                        <StackLayout Orientation="Horizontal" Spacing="30" Padding="20,0,0,0" BackgroundColor="{Binding Color}">
+                            <Label Text="{Binding BaseTransaction.CatName}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                            <Label Text="{Binding BaseTransaction.Date, StringFormat='{0:MMMM dd}'}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                            <Label Text="{Binding BaseTransaction.Amount, StringFormat='{0:C}'}" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="5,0,0,0"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

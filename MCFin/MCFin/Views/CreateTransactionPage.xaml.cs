@@ -17,9 +17,10 @@ namespace MCFin.Views
     {
         CreateTransactionViewModel ViewModel { get; set; }
         int acctId;
+        PersonalAccount _personalAccount;
         public CreateTransactionPage()
         {
-            ViewModel = new CreateTransactionViewModel();
+            ViewModel = new CreateTransactionViewModel(Navigation);
 
             InitializeComponent();
 
@@ -30,8 +31,9 @@ namespace MCFin.Views
 
         public CreateTransactionPage(int Id, AccountDetailViewModel vm)
         {
-            ViewModel = new CreateTransactionViewModel();
+            ViewModel = new CreateTransactionViewModel(Navigation);
             acctId = Id;
+            _personalAccount = vm.personalAccount;
             InitializeComponent();
 
             accountPicker.ItemsSource = ViewModel.accountList;
@@ -40,14 +42,15 @@ namespace MCFin.Views
             accountSection.IsVisible = false;
         }
 
-        private void submitButton_Clicked(object sender, EventArgs e)
+        private async void submitButton_Clicked(object sender, EventArgs e)
         {
             submitButton.IsEnabled = false;
+            var amountModifier = expenseBox.IsChecked ? -1 : 1;
             var transaction = new PostTransaction
             {
                 Description = descriptionEntry.Text,
                 Date = (DateTimeOffset)datePicker.Date,
-                Amount = Convert.ToDecimal(amountEntry.Text),
+                Amount = Convert.ToDecimal(amountEntry.Text) * amountModifier,
                 Type = expenseBox.IsChecked,
                 AccountId = accountPicker.SelectedItem == null ? acctId : (accountPicker.SelectedItem as PersonalAccount).Id,
                 CategoryId = (categoryPicker.SelectedItem as Category).Id,
@@ -56,8 +59,8 @@ namespace MCFin.Views
             };
 
             ViewModel.CreateTransaction(transaction);
-            App.dashboardViewModel.CallAllLists();
-            Navigation.PopAsync();
+            
+            
         }
     }
 }

@@ -44,13 +44,17 @@ namespace MCFin.Views
             budgetList.SelectedItem = null;
         }
 
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             accountListView.SelectedItem = null;
 
             base.OnAppearing();
-            ChartOne.Chart = new DonutChart() { Entries = vm.entries, HoleRadius = .8f, LabelTextSize = 28, BackgroundColor = SkiaSharp.SKColor.Parse("#00FFFFFF") };
+            ChartOne.Chart = new DonutChart() { Entries = vm.entries, HoleRadius = .8f, LabelTextSize = 27, BackgroundColor = SkiaSharp.SKColor.Parse("#00FFFFFF") };
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

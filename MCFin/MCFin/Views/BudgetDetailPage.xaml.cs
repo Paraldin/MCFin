@@ -15,13 +15,13 @@ namespace MCFin.Views
     public partial class BudgetDetailPage : ContentPage
     {
         private Budget _budget;
+        private BudgetDetailViewModel ViewModel;
         public BudgetDetailPage(Budget budget)
         {
             _budget = budget;
-            var vm = new BudgetDetailViewModel(budget, Navigation);
+            ViewModel = new BudgetDetailViewModel(budget, Navigation);
             InitializeComponent();
-            BindingContext = vm;
-            ChartOne.Chart = vm.Chart;
+            BindingContext = ViewModel;
         }
 
         private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -29,6 +29,14 @@ namespace MCFin.Views
             await Navigation.PushAsync(new TransactionDetailPage(((Transaction)e.Item), _budget));
 
             ((ListView)sender).SelectedItem = null;
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await ViewModel.RefreshBudget(_budget);
+            transactionList.ItemsSource = ViewModel.transactions;
+            ChartOne.Chart = ViewModel.Chart;
         }
     }
 }

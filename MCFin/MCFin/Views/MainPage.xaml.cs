@@ -33,5 +33,10 @@ namespace MCFin
             LoginForm_PasswordError.IsVisible = false;
             loginMessage.IsVisible = false;
         }
+
+        private void Username_Completed(object sender, EventArgs e)
+        {
+            passwordEntry.Focus();
+        }
     }
 }

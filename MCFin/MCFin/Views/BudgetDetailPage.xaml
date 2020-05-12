@@ -28,7 +28,7 @@
             </StackLayout>
         </StackLayout>
         <BoxView BackgroundColor="Black" HeightRequest="1" Grid.ColumnSpan="3" VerticalOptions="End"/>
-        <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding transactions}" ItemTapped="ListView_ItemTapped" RowHeight="50">
+        <ListView x:Name="transactionList" Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding transactions}" ItemTapped="ListView_ItemTapped" RowHeight="50">
             <ListView.Header>
                 <StackLayout Orientation="Horizontal" Spacing="30" Padding="30,20,0,10" BackgroundColor="Accent">
                     <Label Text="Category" TextColor="White" FontAttributes="Bold" TextDecorations="Underline" HorizontalOptions="FillAndExpand"/>

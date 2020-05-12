@@ -15,7 +15,7 @@ namespace MCFin.ViewModels
     {
         public Command AddTransaction { get; }
         public PersonalAccount personalAccount { get; private set; }
-        public ObservableCollection<Transaction> transactionCollection { get; private set; }
+        public ObservableCollection<TransactionViewModel> transactionCollection { get; private set; }
         INavigation _navigation;
         public AccountDetailViewModel(PersonalAccount account, INavigation nav)
         {
@@ -33,7 +33,14 @@ namespace MCFin.ViewModels
         {
             List<Transaction> transactions = await ApiCore.GetAccountTransactions(acctId);
             transactions = transactions.OrderByDescending(t => t.Date).ToList();
-            transactionCollection = new ObservableCollection<Transaction>(transactions);
+            transactionCollection = new ObservableCollection<TransactionViewModel>();
+            foreach(var trans in transactions)
+            {
+                var transVM = new TransactionViewModel();
+                transVM.BaseTransaction = trans;
+                transVM.Color = trans.Reconciled ? "#c0fce3" : "#ffcccc";
+                transactionCollection.Add(transVM);
+            }
         }
     }
 }

@@ -32,15 +32,30 @@
                     <Label x:Name="loginMessage" Text="Incorrect Username or Password" TextColor="Red" IsVisible="False" />
                     <StackLayout Spacing="-20">
                         <Label x:Name="LoginForm_UsernameError" IsVisible="False" TextColor="Red" />
-                        <Entry Text="{Binding LoginModel.Username}" Placeholder="Email" Keyboard="Email" TextChanged="entry_TextChanged" />
+                        <Entry Text="{Binding LoginModel.Username}" Placeholder="Email" Keyboard="Email" TextChanged="entry_TextChanged" Completed="Username_Completed" />
                     </StackLayout>
                     <StackLayout Spacing="-20">
                         <Label x:Name="LoginForm_PasswordError" IsVisible="False" TextColor="Red" />
-                        <Entry Text="{Binding LoginModel.Password}"  IsPassword="True" Placeholder="Password" TextChanged="entry_TextChanged" />
+                        <Entry x:Name="passwordEntry" Text="{Binding LoginModel.Password}"  IsPassword="True" Placeholder="Password" TextChanged="entry_TextChanged" />
                     </StackLayout>
                 </StackLayout>
             </Frame>
-            <Button x:Name="submitButton" Command="{Binding LoginInCommand}" Grid.Row="1" Text="Login" CornerRadius="30" BackgroundColor="#18588E" TextColor="White" />
+            <Button x:Name="submitButton" Command="{Binding LoginInCommand}" Grid.Row="1" Text="Login" CornerRadius="30" BackgroundColor="#18588E" TextColor="White">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Gray"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#18588E"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
         </Grid>
     </StackLayout>
 

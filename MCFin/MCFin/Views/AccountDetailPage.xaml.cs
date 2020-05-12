@@ -39,7 +39,7 @@ namespace MCFin.Views
 
         private async void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            await Navigation.PushAsync(new TransactionDetailPage(((Transaction)e.Item), acct));
+            await Navigation.PushAsync(new TransactionDetailPage((((TransactionViewModel)e.Item).BaseTransaction), acct));
             ((ListView)sender).SelectedItem = null;
         }
 

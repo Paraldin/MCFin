@@ -134,7 +134,6 @@ namespace MCFin.Core
         public static async Task<Int16> PostTransaction(string description, DateTimeOffset date, decimal transactionAmount, bool type, int acctId, int categoryId, string enteredById, int budgetId = 0)
         {
             string root = APIConstants.Root;
-            transactionAmount = type == true ? transactionAmount * -1 : transactionAmount;
             string queryString = $"{root}/api/Accounts/AddTransaction?description={description}&date={date}&transactionAmount={transactionAmount}&type={type}&acctId={acctId}&categoryId={categoryId}&enteredBy={enteredById}&budgetId={budgetId}";
 
             var jsonResult = await ApiServices.GetDataFromService(queryString).ConfigureAwait(false);

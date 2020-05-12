@@ -4,7 +4,9 @@ using Microcharts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Entry = Microcharts.Entry;
 
@@ -21,9 +23,13 @@ namespace MCFin.ViewModels
         {
             Budget = budget;
             _navigation = nav;
+            transactions = new ObservableCollection<Transaction>();
+        }
 
-            GetBudgetTransactions(budget.Id);
+        public async Task RefreshBudget(Budget budget)
+        {
             CreateChart(budget);
+            await GetBudgetTransactions(budget.Id);
         }
 
         private void CreateChart(Budget budget)
@@ -35,10 +41,10 @@ namespace MCFin.ViewModels
             Chart = new RadialGaugeChart { Entries = entries, MaxValue = (float)budget.Amount, BackgroundColor = SkiaSharp.SKColor.Parse("#00FFFFFF") };
         }
 
-        private void GetBudgetTransactions(int budgetId)
+        private async Task GetBudgetTransactions(int budgetId)
         {
-            List<Transaction> budgets = ApiCore.GetBudgetTransactions(budgetId).Result;
-            transactions = new ObservableCollection<Transaction>(budgets);
+            List<Transaction> budgetTrans = await ApiCore.GetBudgetTransactions(budgetId);
+            transactions = new ObservableCollection<Transaction>(budgetTrans);
         }
     }
 }
